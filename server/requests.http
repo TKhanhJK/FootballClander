@@ -1,0 +1,134 @@
+### ==============================================================================
+### PITCHMASTER 11 - API REQUEST EXAMPLES (HOMEWORK 4A - SUBMISSION EVIDENCE)
+### Base URL: http://localhost:5000/api
+### ==============================================================================
+
+@baseUrl = http://localhost:5000/api
+
+### ------------------------------------------------------------------------------
+### 1. HEALTH CHECK ENDPOINT (Kiểm tra trạng thái máy chủ & CSDL)
+### ------------------------------------------------------------------------------
+GET {{baseUrl}}/health
+Accept: application/json
+
+###
+
+### ------------------------------------------------------------------------------
+### 2. GET ALL PITCHES (Lấy danh sách các sân bóng đá 11 người)
+### ------------------------------------------------------------------------------
+GET {{baseUrl}}/pitches
+Accept: application/json
+
+###
+
+### ------------------------------------------------------------------------------
+### 3. GET TIME SLOTS (Lấy danh sách ca đá 120 phút & phụ thu đèn)
+### ------------------------------------------------------------------------------
+GET {{baseUrl}}/time-slots
+Accept: application/json
+
+###
+
+### ------------------------------------------------------------------------------
+### 4. GET ALL ADDON SERVICES (Lấy danh sách dịch vụ bổ trợ: Trọng tài, áo, nước)
+### ------------------------------------------------------------------------------
+GET {{baseUrl}}/addons
+Accept: application/json
+
+###
+
+### ------------------------------------------------------------------------------
+### 5. CREATE BOOKING - [SUCCESS - 201 CREATED] (Tạo đơn hợp lệ, tính cọc 30%)
+### ------------------------------------------------------------------------------
+POST {{baseUrl}}/bookings
+Content-Type: application/json
+Accept: application/json
+
+{
+  "customerName": "Đặng Văn Lâm",
+  "teamName": "FC Thủ Môn Thép",
+  "phone": "0989123456",
+  "pitchId": "pitch-01",
+  "date": "2026-10-25",
+  "timeSlotId": "slot-3",
+  "addons": ["referee", "water", "ball"],
+  "notes": "Trận đấu bán kết giải phong trào, yêu cầu cờ biên chuẩn",
+  "agreeTerms": true
+}
+
+###
+
+### ------------------------------------------------------------------------------
+### 6. CREATE BOOKING - [FAIL - 400 BAD REQUEST] (Thiếu trường hoặc SĐT sai)
+### ------------------------------------------------------------------------------
+POST {{baseUrl}}/bookings
+Content-Type: application/json
+Accept: application/json
+
+{
+  "customerName": "AB",
+  "teamName": "",
+  "phone": "123456",
+  "pitchId": "pitch-01",
+  "date": "2020-01-01",
+  "timeSlotId": "slot-1",
+  "agreeTerms": false
+}
+
+###
+
+### ------------------------------------------------------------------------------
+### 7. CREATE BOOKING - [FAIL - 409 CONFLICT] (Chống trùng lịch / Double booking)
+### Chạy lại request này ngay sau khi đã có người đặt cùng ngày và ca đá
+### ------------------------------------------------------------------------------
+POST {{baseUrl}}/bookings
+Content-Type: application/json
+Accept: application/json
+
+{
+  "customerName": "Nguyễn Văn Đối Thủ",
+  "teamName": "FC Tranh Sân",
+  "phone": "0903888999",
+  "pitchId": "pitch-01",
+  "date": "2026-10-25",
+  "timeSlotId": "slot-3",
+  "agreeTerms": true
+}
+
+###
+
+### ------------------------------------------------------------------------------
+### 8. GET ALL BOOKINGS (Lấy toàn bộ danh sách đơn đặt từ bộ nhớ bền vững)
+### ------------------------------------------------------------------------------
+GET {{baseUrl}}/bookings
+Accept: application/json
+
+###
+
+### ------------------------------------------------------------------------------
+### 9. FILTER BOOKINGS BY STATUS (Lọc theo trạng thái 'confirmed')
+### ------------------------------------------------------------------------------
+GET {{baseUrl}}/bookings?status=confirmed
+Accept: application/json
+
+###
+
+### ------------------------------------------------------------------------------
+### 10. GET BOOKING BY ID (Xem chi tiết 1 đơn đặt sân)
+### ------------------------------------------------------------------------------
+GET {{baseUrl}}/bookings/BK-2026-089
+Accept: application/json
+
+###
+
+### ------------------------------------------------------------------------------
+### 11. UPDATE BOOKING STATUS (Xác nhận nhận cọc 30% -> 'confirmed')
+### ------------------------------------------------------------------------------
+PATCH {{baseUrl}}/bookings/BK-2026-090/status
+Content-Type: application/json
+Accept: application/json
+
+{
+  "status": "confirmed"
+}
+

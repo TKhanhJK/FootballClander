@@ -1,0 +1,24 @@
+services:
+  pitchmaster-api:
+    build:
+      context: ..
+      dockerfile: server/Dockerfile
+    container_name: pitchmaster_backend_service
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - CORS_ORIGIN=http://localhost:3000
+      - API_SECRET_KEY=pitchmaster_container_vault_secret_2026
+      - DATA_DIR=/app/server/data
+    volumes:
+      # Persistent volume mapping to preserve bookings across container rebuilds
+      - ./data:/app/server/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
