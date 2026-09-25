@@ -24,6 +24,7 @@ export const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
   corsOrigin: process.env.CORS_ORIGIN || '*',
   apiSecretKey: process.env.API_SECRET_KEY || 'default_dev_secret_never_use_in_prod',
+  geminiApiKey: process.env.GEMINI_API_KEY || '',
   dataDir: resolveDataDirectory(),
   logLevel: process.env.LOG_LEVEL || 'info',
   isProduction: process.env.NODE_ENV === 'production',
@@ -35,4 +36,3 @@ export function getMaskedSecret(secret: string): string {
   if (!secret || secret.length <= 6) return '******';
   return `${secret.slice(0, 3)}...${secret.slice(-3)}`;
 }
-

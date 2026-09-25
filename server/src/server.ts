@@ -17,6 +17,7 @@ const server = app.listen(config.port, () => {
   console.log(`  • GET   http://localhost:${config.port}/api/bookings`);
   console.log(`  • POST  http://localhost:${config.port}/api/bookings`);
   console.log(`  • PATCH http://localhost:${config.port}/api/bookings/:id/status`);
+  console.log(`  • POST  http://localhost:${config.port}/api/ai/chat`);
   console.log('======================================================\n');
 });
 

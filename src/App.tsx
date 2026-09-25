@@ -7,6 +7,7 @@ import { PitchDashboard } from './screens/PitchDashboard';
 import { BookingForm } from './screens/BookingForm';
 import { BookingList } from './screens/BookingList';
 import { ToastContainer, ToastMessage } from './components/Toast';
+import { AIChatWidget } from './components/AIChatWidget';
 import { apiClient } from './services/api';
 
 export const App: React.FC = () => {
@@ -216,7 +217,15 @@ export const App: React.FC = () => {
         </div>
       </footer>
 
-      {/* 5. Toast Notifications Container */}
+      {/* 5. AI Assistant Chat Widget */}
+      <AIChatWidget
+        onNavigateToBook={(pitchId) => {
+          if (pitchId) setSelectedPitchIdToBook(pitchId);
+          setCurrentTab('book');
+        }}
+      />
+
+      {/* 6. Toast Notifications Container */}
       <ToastContainer toasts={toasts} onDismiss={removeToast} />
     </div>
   );

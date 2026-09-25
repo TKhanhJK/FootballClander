@@ -72,6 +72,39 @@ export const apiClient = {
     } catch {
       return false;
     }
+  },
+
+  // Send AI Chat
+  async sendAIChat(
+    message: string,
+    history: { role: 'user' | 'model'; content: string }[] = []
+  ): Promise<{ success: boolean; reply: string; isAiPowered?: boolean; error?: string }> {
+    try {
+      const res = await fetch(`${API_BASE}/ai/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message, history })
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        return {
+          success: false,
+          reply: '',
+          error: json.message || 'Lỗi khi kết nối với Trợ lý AI'
+        };
+      }
+      return {
+        success: true,
+        reply: json.data?.reply || '',
+        isAiPowered: json.data?.isAiPowered
+      };
+    } catch (err: any) {
+      return {
+        success: false,
+        reply: '',
+        error: err.message || 'Không thể kết nối đến máy chủ trợ lý AI.'
+      };
+    }
   }
 };
 

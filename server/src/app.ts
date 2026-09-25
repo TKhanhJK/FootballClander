@@ -6,6 +6,7 @@ import { errorHandler } from './middlewares/error.middleware.js';
 import healthRoutes from './routes/health.routes.js';
 import pitchRoutes from './routes/pitch.routes.js';
 import bookingRoutes from './routes/booking.routes.js';
+import aiRoutes from './routes/ai.routes.js';
 
 export function createApp(): Express {
   const app = express();
@@ -25,6 +26,7 @@ export function createApp(): Express {
   app.use('/api', healthRoutes);
   app.use('/api', pitchRoutes);
   app.use('/api', bookingRoutes);
+  app.use('/api', aiRoutes);
 
   // 404 Handler for undefined routes
   app.use('*', (req, res) => {
@@ -42,4 +44,3 @@ export function createApp(): Express {
 }
 
 export const app = createApp();
-

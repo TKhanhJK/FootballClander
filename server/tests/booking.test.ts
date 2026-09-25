@@ -3,8 +3,8 @@ import request from 'supertest';
 import { app } from '../src/app.js';
 
 describe('Pitch Booking API Vertical Slice', () => {
-  // Test Ngày tương lai hợp lệ
-  const testDate = '2026-10-15';
+  // Test Ngày tương lai hợp lệ (tạo ngẫu nhiên để tránh conflict giữa các lần test)
+  const testDate = `2026-12-${String(Math.floor(Math.random() * 20) + 10)}`;
   const testPitchId = 'pitch-01';
   const testSlotId = 'slot-3'; // Ca Tối Vàng (18:00 - 20:00)
 

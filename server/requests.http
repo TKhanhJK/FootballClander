@@ -132,3 +132,25 @@ Accept: application/json
   "status": "confirmed"
 }
 
+###
+
+### ------------------------------------------------------------------------------
+### 12. AI ASSISTANT CHAT (Tư vấn sân và tra cứu lịch trống thông minh)
+### ------------------------------------------------------------------------------
+POST {{baseUrl}}/ai/chat
+Content-Type: application/json
+Accept: application/json
+
+{
+  "message": "Tôi muốn tìm sân cỏ tự nhiên đá vào buổi tối có đèn chiếu sáng tốt thì có những sân nào và giá bao nhiêu?"
+}
+
+###
+POST {{baseUrl}}/ai/chat
+Content-Type: application/json
+Accept: application/json
+
+{
+  "message": "Chính sách đặt cọc 30% và quy định hủy sân như thế nào?"
+}
+
